@@ -1,4 +1,4 @@
-package life.zl.community.community.controller;
+package life.zl.community.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
