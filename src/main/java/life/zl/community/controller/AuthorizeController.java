@@ -11,7 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
 @Controller
@@ -31,7 +32,7 @@ public class AuthorizeController {
     @GetMapping("/callback")
     public String Authorize(@RequestParam(name = "code")String code,
                             @RequestParam(name = "state")String state,
-                            HttpServletRequest request){
+                            HttpServletResponse response){
         AccessTokenDto accessTokenDto = new AccessTokenDto();
         accessTokenDto.setClient_id(clientID);
         accessTokenDto.setClient_secret(clientSecret);
@@ -45,16 +46,17 @@ public class AuthorizeController {
 
         if(githubuser!=null){
             User user = new User();
-            user.setToken(UUID.randomUUID().toString());
+            String token = UUID.randomUUID().toString();
+            user.setToken(token);
             user.setAccount_id(String.valueOf(githubuser.getId()));
             user.setName(githubuser.getName());
             user.setGmt_create(System.currentTimeMillis());
             user.setGmt_modified(user.getGmt_create());
             userMapper.insert(user);
-            request.getSession().setAttribute("user",githubuser);
-            return "redirect:/";
+            response.addCookie(new Cookie("token",token));
+            return "redirect:/index";
         }else {
-            return "redirect:/";
+            return "redirect:/index";
         }
 
 
