@@ -1,5 +1,8 @@
 package life.zl.community.model;
 
+import lombok.Data;
+
+@Data
 public class User {
 
     private Integer id;
@@ -8,6 +11,7 @@ public class User {
     private String token;
     private Long gmt_create;
     private Long gmt_modified;
+    private String avatar_url;
 
     @Override
     public String toString() {
@@ -18,6 +22,7 @@ public class User {
                 ", token='" + token + '\'' +
                 ", gmt_create=" + gmt_create +
                 ", gmt_modified=" + gmt_modified +
+                ", avatar_url='" + avatar_url + '\'' +
                 '}';
     }
 
@@ -67,5 +72,13 @@ public class User {
 
     public void setGmt_modified(Long gmt_modified) {
         this.gmt_modified = gmt_modified;
+    }
+
+    public String getAvatar_url() {
+        return avatar_url;
+    }
+
+    public void setAvatar_url(String avatar_url) {
+        this.avatar_url = avatar_url;
     }
 }
