@@ -2,7 +2,7 @@ package life.zl.community.controller;
 
 import life.zl.community.dto.PaginationDTO;
 import life.zl.community.model.User;
-import life.zl.community.service.ServiceQuestion;
+import life.zl.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +17,7 @@ public class ProFileController {
 
 
     @Autowired
-    private ServiceQuestion serviceQuestion;
+    private QuestionService questionService;
 
     @GetMapping("/profile/{action}")
     public String profile(@PathVariable(name = "action")String action,
@@ -39,7 +39,7 @@ public class ProFileController {
             model.addAttribute("replies","最新回复");
         }
 
-        PaginationDTO pagination = serviceQuestion.list(user.getId(), page, size);
+        PaginationDTO pagination = questionService.list(user.getId(), page, size);
         model.addAttribute("pagination",pagination);
         return "profile";
     }

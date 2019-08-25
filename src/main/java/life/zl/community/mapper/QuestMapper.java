@@ -26,5 +26,8 @@ public interface QuestMapper {
     Question getById(@Param(value = "id")Integer id);
 
     @Update("update question set title = #{title},description = #{description},gmt_modified = #{gmt_modified},tag = #{tag} where id = #{id}")
-    void update(Question question);
+    int update(Question question);
+
+    @Update("update question set view_count = #{view_count} where id = #{id}")
+    int updateViewCount(Question question);
 }

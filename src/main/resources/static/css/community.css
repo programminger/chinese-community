@@ -27,3 +27,7 @@ body{
     color: #999;
     font-size: 13px;
 }
+
+.error_page{
+    margin: 50px;
+}

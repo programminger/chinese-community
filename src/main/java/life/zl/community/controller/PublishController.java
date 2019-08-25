@@ -3,7 +3,7 @@ package life.zl.community.controller;
 import life.zl.community.dto.QuestDTO;
 import life.zl.community.model.Question;
 import life.zl.community.model.User;
-import life.zl.community.service.ServiceQuestion;
+import life.zl.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +19,7 @@ public class PublishController {
 
 
     @Autowired
-    private ServiceQuestion serviceQuestion;
+    private QuestionService questionService;
 
     @GetMapping("/publish")
     public String publish(){
@@ -30,7 +30,7 @@ public class PublishController {
     public String edit(@PathVariable(name = "id")Integer id,
                        Model model){
 
-        QuestDTO question = serviceQuestion.getByID(id);
+        QuestDTO question = questionService.getByID(id);
         model.addAttribute("title",question.getTitle());
         model.addAttribute("description",question.getDescription());
         model.addAttribute("tag",question.getTag());
@@ -81,7 +81,7 @@ public class PublishController {
         question.setId(id);
 
 
-        serviceQuestion.createOrUpdate(question);
+        questionService.createOrUpdate(question);
 
         return "redirect:/";
 
