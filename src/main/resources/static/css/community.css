@@ -15,6 +15,12 @@ body{
     width: 40px;
     height: 40px;
 }
+.comment{
+    margin:10px 0;
+}
+.media-body{
+    padding-top: 18px;
+}
 .text-desc{
     font-size: 12px;
     font-weight: normal;
@@ -26,6 +32,11 @@ body{
 .community-menu{
     color: #999;
     font-size: 13px;
+}
+
+.btn{
+    float: right;
+    margin: 11px;
 }
 
 .error_page{

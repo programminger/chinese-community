@@ -97,6 +97,9 @@ public class QuestionService {
         if(question.getId()==null){
             question.setGmt_create(System.currentTimeMillis());
             question.setGmt_modified(question.getGmt_create());
+            question.setComment_count(0);
+            question.setView_count(0);
+            question.setLike_count(0);
             questMapper.create(question);
         }else {
             question.setGmt_modified(System.currentTimeMillis());
@@ -112,10 +115,35 @@ public class QuestionService {
         while (true) {
             try {
                 Question question1 = questMapper.getById(id);
+                if(question1==null){
+                    break;
+                }
                 Question question = new Question();
                 question.setId(id);
                 question.setView_count(question1.getView_count()+1);
                 int updateCount = questMapper.updateViewCount(question);
+                if(updateCount > 0) {
+                    break;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    public void incCount(Integer id) {
+        //乐观锁实现回复自增1
+        while (true) {
+            try {
+                Question question1 = questMapper.getById(id);
+                if(question1==null){
+                    break;
+                }
+                Question question = new Question();
+                question.setId(id);
+                question.setComment_count(question1.getComment_count()+1);
+                int updateCount = questMapper.updateCommentCount(question);
                 if(updateCount > 0) {
                     break;
                 }
